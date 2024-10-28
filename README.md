@@ -1,0 +1,1 @@
+# adequate_json

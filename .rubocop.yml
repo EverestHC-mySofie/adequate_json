@@ -1,0 +1,7 @@
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*_spec.rb
+    - adequate_json.gemspec
+
+Style/Documentation:
+  Enabled: false

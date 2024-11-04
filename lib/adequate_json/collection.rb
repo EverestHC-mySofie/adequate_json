@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'adequate_json/base'
 module AdequateJson
   class Collection < AdequateJson::Base
     def initialize(collection, json = nil, variant: nil)

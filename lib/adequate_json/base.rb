@@ -33,10 +33,10 @@ module AdequateJson
       end
     end
 
-    def serialize(model, **)
+    def serialize(model, **options)
       return if model.nil?
 
-      choose_serializer(model, **).to_builder
+      choose_serializer(model, **options).to_builder
     end
 
     def full_image_url(url)

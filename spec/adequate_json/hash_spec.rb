@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# spec/adequate_json/hash_spec.rb
-
-require 'adequate_json'
+require 'spec_helper'
 
 RSpec.describe AdequateJson::Hash do
   let(:simple_hash) { { key1: 1, key2: 'value2', key3: :symbol_value } }

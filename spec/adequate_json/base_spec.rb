@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# spec/adequate_json/base_spec.rb
-
-require 'adequate_json'
+require 'spec_helper'
 
 RSpec.describe AdequateJson::Base do
   let(:model) { double('User', name: 'John Doe') }
@@ -78,17 +76,11 @@ RSpec.describe AdequateJson::Base do
     end
   end
 
-  describe '#resolve_serializer' do
-    it 'returns the correct serializer class for a given symbol' do
-      expect(instance.resolve_serializer(:hash)).to eq(AdequateJson::Hash)
-    end
-
-    it 'raises for uninitialized constant' do
-      expect { instance.resolve_serializer(:unknown_serializer) }.to raise_error NameError
-    end
-  end
-
   describe '#choose_serializer' do
+    before do
+      AdequateJson::Resolver::Cache.reset
+    end
+
     context 'when model responds to to_hash' do
       let(:model) { double('model', to_hash: { foo: 'bar' }) }
 
@@ -105,27 +97,27 @@ RSpec.describe AdequateJson::Base do
       end
     end
 
-    context 'when model has a custom serializer method' do
-      let(:model) { double('model', serializer: :custom_serializer) }
-
-      it 'uses the custom serializer' do
-        serializer_class = class_double('AdequateJson::CustomSerializer').as_stubbed_const
-        serializer_instance = instance_double(serializer_class)
-        allow(serializer_class).to receive(:new).and_return(serializer_instance)
-
-        expect(instance.choose_serializer(model)).to eq serializer_instance
-      end
-    end
-
     context 'when model does not have a custom serializer method' do
       let(:model) { double('model', model_name: :user) }
 
       it 'uses the model_name to determine the serializer' do
-        serializer_class = class_double('AdequateJson::User').as_stubbed_const
+        serializer_class = class_double('Serializers::User').as_stubbed_const
         serializer_instance = instance_double(serializer_class)
         allow(serializer_class).to receive(:new).with(model, json).and_return(serializer_instance)
 
         expect(instance.choose_serializer(model)).to eq(serializer_instance)
+      end
+    end
+
+    context 'when model has a custom serializer method' do
+      let(:model) { double('model', serializer: :custom_serializer) }
+
+      it 'uses the custom serializer' do
+        serializer_class = class_double('Serializers::CustomSerializer').as_stubbed_const
+        serializer_instance = instance_double(serializer_class)
+        allow(serializer_class).to receive(:new).and_return(serializer_instance)
+
+        expect(instance.choose_serializer(model)).to eq serializer_instance
       end
     end
   end

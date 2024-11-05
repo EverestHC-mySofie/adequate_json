@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'adequate_json'
+require 'jbuilder'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -14,3 +14,25 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+module Rails
+  class Railtie
+    def self.config
+      @config ||= Config.new
+    end
+
+    class Config
+      def after_initialize(&block)
+        block.call
+      end
+    end
+  end
+end
+
+module ActionController
+  class API
+    # Empty class for including modules in tests
+  end
+end
+
+require 'adequate_json'

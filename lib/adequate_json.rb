@@ -9,7 +9,10 @@ require 'adequate_json/version'
 require 'adequate_json/base'
 require 'adequate_json/collection'
 require 'adequate_json/serializer'
-require 'adequate_json/railtie'
+
+if defined?(::Rails::Railtie)
+  require 'adequate_json/railtie'
+end
 
 module AdequateJson
   class Error < StandardError; end

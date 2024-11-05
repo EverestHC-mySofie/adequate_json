@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AdequateJson
   module Serializer
     include AdequateJson::Resolver

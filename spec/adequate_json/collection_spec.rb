@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# spec/adequate_json/collection_spec.rb
-
-require 'adequate_json'
+require 'spec_helper'
 
 RSpec.describe AdequateJson::Collection do
   let(:item1) { double('Item', id: 1, name: 'Item 1') }

@@ -39,11 +39,11 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'jbuilder'
 
-  spec.add_development_dependency 'bundler', '~> 2.5'
   spec.add_development_dependency 'attr_extras'
-  spec.add_development_dependency 'rails'
+  spec.add_development_dependency 'bundler', '~> 2.5'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rubocop'
 
   spec.required_ruby_version = '~> 3.0'
 end

@@ -7,14 +7,14 @@ class Person
   vattr_initialize :first_name, :last_name
 
   def model_name
-    'Person'
+    Struct.new(:name).new('Person')
   end
 end
 
 module Serializers
   class Person < AdequateJson::Base
     builder :no_wrapper do |json, person|
-      json.(person, :first_name, :last_name)
+      json.call(person, :first_name, :last_name)
     end
   end
 end

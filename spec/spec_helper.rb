@@ -22,8 +22,14 @@ module Rails
     end
 
     class Config
+      attr_reader :before_initialize_block, :after_initialize_block
+
+      def before_initialize(&block)
+        @before_initialize_block = block
+      end
+
       def after_initialize(&block)
-        block.call
+        @after_initialize_block = block
       end
     end
   end

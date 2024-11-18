@@ -78,7 +78,7 @@ RSpec.describe AdequateJson::Base do
 
   describe '#choose_serializer' do
     before do
-      AdequateJson::Resolver::Cache.reset
+      AdequateJson::Resolver::Cache.reset!
     end
 
     context 'when model responds to to_hash' do

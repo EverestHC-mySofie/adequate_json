@@ -5,7 +5,7 @@ module AdequateJson
     include AdequateJson::Resolver
 
     def render_json(model, variant: nil, **options)
-      render json: choose_serializer(model, variant:), **options
+      render json: choose_serializer(model, variant: variant), **options
     end
 
     def render_error(error, model = nil, includes: nil, **options)

@@ -9,20 +9,29 @@ module AdequateJson
         AdequateJson::Hash.new(model.to_hash, @json, **args)
       elsif model.respond_to?(:each)
         AdequateJson::Collection.new(model, @json, **args)
-      elsif cached = serializer_cache.get(model)
-        cached.new(model, @json, **args)
       else
-        serializer_id = (model.respond_to?(:serializer) && model.serializer) || model.model_name
-        serializer_cache.set(model, resolve_serializer(serializer_id)).new(model, @json, **args)
+        model_serializer(model, **args)
       end
     end
 
     private
 
-    def resolve_serializer(symbol)
-      return Serializers.const_get(symbol.to_s.camelcase) if defined?(Serializers)
+    def model_serializer(model, **args)
+      serializer_id = (model.respond_to?(:serializer) && model.serializer) || model.model_name.name
+      klazz = serializer_cache.get(serializer_id) ||
+              serializer_cache.set(serializer_id, resolve_serializer(serializer_id))
+      klazz.new(model, @json, **args)
+    end
 
-      raise "Please create a Serializers module to handle serializer classes"
+    def resolve_serializer(symbol)
+      klazz = symbol.to_s.camelcase
+      return serializers_module.const_get(klazz, false) if serializers_module.const_defined?(klazz, false)
+
+      raise "Unable to find serializer for #{klazz}"
+    end
+
+    def serializers_module
+      AdequateJson.configuration.serializers_module_const
     end
 
     def serializer_cache
@@ -31,19 +40,20 @@ module AdequateJson
 
     class Cache
       class << self
-        def get(model)
-          store[model.class.name]
+        def get(serializer_id)
+          store[serializer_id]
         end
 
-        def set(model, serializer)
-          store[model.class.name] = serializer
+        def set(serializer_id, serializer)
+          store[serializer_id] = serializer
+          serializer
         end
 
         def store
           @store ||= {}
         end
 
-        def reset
+        def reset!
           @store = {}
         end
       end

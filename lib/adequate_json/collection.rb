@@ -11,7 +11,7 @@ module AdequateJson
 
     def to_builder
       with_jbuilder do |json|
-        json.set!(@first_level ? :collection : @model.model_name.plural) do
+        json.set!(collection_key) do
           json.array! @model do |item|
             serialize item, variant: @variant
           end
@@ -21,6 +21,12 @@ module AdequateJson
     end
 
     private
+
+    def collection_key
+      return @model.model_name.plural if !@first_level || AdequateJson.configuration.use_model_name_for_collection_key
+
+      AdequateJson.configuration.collection_key
+    end
 
     def attach_pagination(json)
       return unless @first_level && @model.respond_to?(:current_page)

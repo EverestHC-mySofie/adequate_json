@@ -5,12 +5,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'adequate_json/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'adequate_json'
+  spec.name          = 'AdequateJSON'
   spec.version       = AdequateJson::VERSION
-  spec.authors       = ['Issam Tribak']
-  spec.email         = ['issam.tribak@mysofie.fr']
+  spec.authors       = ['Jef Mathiot', 'Issam Tribak', 'Wilfried Tacquard']
+  spec.email         = ['jeff.mathiot@gmail.com', 'issam.tribak@mysofie.fr', 'wilfried.tacquard@mysofie.fr']
 
-  spec.summary       = 'Json serialization library'
+  spec.summary       = 'Yet another JSON serialization library'
   spec.description   = 'Adequate Json is a gem that simplifies the process of serializing JSON for API responses.'
   spec.homepage      = 'https://github.com/EverestHC-mySofie/adequate_json'
   spec.license       = 'MIT'

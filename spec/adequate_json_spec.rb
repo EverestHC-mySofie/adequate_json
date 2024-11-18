@@ -6,6 +6,6 @@ RSpec.describe AdequateJson do
   end
 
   it 'yields a configuration' do
-    expect{ |b| described_class.configure &b }.to yield_with_args(AdequateJson::ConfigurationBuilder)
+    expect { |b| described_class.configure(&b) }.to yield_with_args(AdequateJson::ConfigurationBuilder)
   end
 end

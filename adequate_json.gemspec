@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'adequate_json/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'AdequateJSON'
+  spec.name          = 'adequate_json'
   spec.version       = AdequateJson::VERSION
   spec.authors       = ['Jef Mathiot', 'Issam Tribak', 'Wilfried Tacquard']
   spec.email         = ['jeff.mathiot@gmail.com', 'issam.tribak@mysofie.fr', 'wilfried.tacquard@mysofie.fr']

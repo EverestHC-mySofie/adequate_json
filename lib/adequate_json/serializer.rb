@@ -9,7 +9,7 @@ module AdequateJson
     end
 
     def render_error(error, model = nil, includes: nil, **options)
-      render json: Serializers::Error.for(error, model, includes), **options
+      render json: Error.for(error, model, includes), **options
     end
   end
 end

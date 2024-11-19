@@ -72,7 +72,7 @@ RSpec.describe AdequateJson::Base do
 
   describe '.builder' do
     it 'adds a builder for a variant' do
-      expect(described_class.builders[:default]).to be_present
+      expect(described_class.builders[:default]).not_to be_nil
     end
   end
 
@@ -123,10 +123,6 @@ RSpec.describe AdequateJson::Base do
   end
 
   describe '#assets' do
-    # it 'returns Rails.application.assets when it is present' do
-    #   assets = double('assets')
-    #   allow(Rails.application).to receive(:assets).and_return(assets)
-    #   expect(instance.assets).to eq(assets)
-    # end
+    pending 'test asset helper'
   end
 end

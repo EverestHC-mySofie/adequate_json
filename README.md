@@ -48,7 +48,7 @@ When rendering a model, AdequateJSON searches for the corresponding serializing
 class in the `Serializers` module (or the module you specify using the
 [configuration](#configuration)).
 
-Each serializer is a class extending AdequateJSON base, and defining one or several
+Each serializer is a class extending `AdequateJSON::Base`, and defining one or several
 variants to build (defaulting to `:default` for single objects and `:no_wrapper`
 for collections):
 
@@ -99,7 +99,6 @@ class Serializers::Product < AdequateJSON::Base
   builder do |json, product| # Same as builder(:default)
     json.product do
       serialize product, variant: :no_wrapper
-      serialize product.category
     end
   end
 
@@ -119,6 +118,7 @@ class Serializers::Product < AdequateJSON::Base
 
   builder(:header) do |json, product|
     json.(product, :id, :name, :price)
+    serialize product.category
   end
 end
 ```
@@ -129,8 +129,8 @@ AdequateJSON uses built-in serializers for hashes and collections and,
 when serializing objects, will use the `#model_name` property to retrieve
 the name of the serializer to search for.
 
-If you need to change the type of serializer an object, you may define the
-`serializer` method on your model:
+If you need to change the type of serializer for a given model, you may define
+the `serializer` method on the model:
 
 ```ruby
 class Book < ApplicationRecord
@@ -172,13 +172,14 @@ class ProductsController < ActionController::API
 end
 ```
 
-```json
+```
 {
   "collection": [
     {
       "id": "a9342787-0d24-43cf-8791-3a512f9e9bd4",
       ...
-    }
+    },
+    ...
   ],
   "pagination": {
     "current_page": 1,
@@ -192,7 +193,8 @@ end
 
 If you'd like AdequateJSON to support other pagination gems, feel
 free to craft a pull-request or to open an
-[issue](https://github.com/EverestHC-mySofie/adequate_json/issues).
+[issue](https://github.com/EverestHC-mySofie/adequate_json/issues),
+we'd be glad to help.
 
 ### Configuration
 
@@ -201,7 +203,7 @@ the `AdequateJSON.configure` method.
 
 The configuration code should take place in the `application.rb` file
 or one of the Rails environment configurations (`production.rb`,
-`development.rb`, etc.):
+`development.rb`, etc.), not in an initializer:
 
 ```ruby
 module AdequateJsonSample

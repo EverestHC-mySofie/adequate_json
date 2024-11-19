@@ -1,4 +1,4 @@
-# AdequateJson
+# AdequateJSON
 
 AdequateJSON is a serialization gem for Ruby on Rails APIs. It is easy to use, versatile,
 [fast](#performances), and promotes API best practices.

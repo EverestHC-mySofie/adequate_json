@@ -269,6 +269,13 @@ call would produce:
 }
 ```
 
+If you need to return errors for nested models and attributes,
+you may use the `includes` keyword argument:
+
+```ruby
+render_error :invalid_model, product, includes: { category: :shop }
+```
+
 ### Configuration
 
 All configuration options are available through a block yielded by
@@ -286,6 +293,7 @@ module AdequateJsonSample
       c.serializers_module :json # defaults to :serializers
       c.use_model_name_for_collection_key true  # defaults to `false`
       c.collection_key :list # defaults to `collection`
+      c.i18n_errors_scope %i[controllers error] # defaults to `%i[api errors]`
     end
 end
 ```

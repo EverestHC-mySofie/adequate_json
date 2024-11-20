@@ -227,25 +227,25 @@ call would produce:
 
 ```json
 {
-	"error": {
-		"code": "invalid_model",
-		"message": "The object couldn't be saved",
-		"details": {
-			"category": [
-				"must exist"
-			],
-			"name": [
-				"can't be blank"
-			],
-			"description": [
-				"can't be blank"
-			],
-			"price": [
-				"can't be blank",
-				"is not a number"
-			]
-		}
-	}
+  "error": {
+    "code": "invalid_model",
+    "message": "The object couldn't be saved",
+    "details": {
+      "category": [
+        "must exist"
+      ],
+      "name": [
+        "can't be blank"
+      ],
+      "description": [
+        "can't be blank"
+      ],
+      "price": [
+        "can't be blank",
+        "is not a number"
+      ]
+    }
+  }
 }
 ```
 

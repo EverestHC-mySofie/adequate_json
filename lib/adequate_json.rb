@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'jbuilder'
-require 'adequate_json/asset_helper'
 require 'adequate_json/resolver'
 require 'adequate_json/jsonizer'
 require 'adequate_json/base'

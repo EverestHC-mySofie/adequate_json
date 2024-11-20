@@ -21,6 +21,9 @@ Or install it yourself as:
 
 ## Usage
 
+If you'd like to tinker with AdequateJSON on your own, see the
+[sample Rails API](https://github.com/EverestHC-mySofie/adequate_json_sample).
+
 ### At the controller level
 
 If you're using — and you probably are — a controller inheriting `ActionController::API`,
@@ -160,7 +163,27 @@ end
 
 ### Pagination
 
-As soon as you've added [Kaminari](https://github.com/kaminari/kaminari)
+As soon as you've added [Kaminari](https:/{
+	"error": {
+		"code": "invalid_model",
+		"message": "The object couldn't be saved",
+		"details": {
+			"category": [
+				"must exist"
+			],
+			"name": [
+				"can't be blank"
+			],
+			"description": [
+				"can't be blank"
+			],
+			"price": [
+				"can't be blank",
+				"is not a number"
+			]
+		}
+	}
+}/github.com/kaminari/kaminari)
 to your Gemfile and paginate a collection, AdequateJSON automatically appends
 the `pagination` property to the JSON output:
 
@@ -185,7 +208,7 @@ end
     "current_page": 1,
     "total_count": 289,
     "next_page": 2,
-    "previous_page": 1,
+    "previous_page": null,
     "total_pages": 29,
   }
 }
@@ -195,6 +218,56 @@ If you'd like AdequateJSON to support other pagination gems, feel
 free to craft a pull-request or to open an
 [issue](https://github.com/EverestHC-mySofie/adequate_json/issues),
 we'd be glad to help.
+
+### Rendering errors
+
+Specify an error code, and AdequateJSON will try to localize it
+with a message found in one of your `locales/*.yml` files. The i18n
+scope defaults to `api.errors`, you may change it in the
+[configuration](#configuration). It also automatically renders errors
+based on ActiveModel messages.
+
+```ruby
+class ProductsController < ApplicationController
+  # ...
+
+  def create
+    product = Product.new(product_params)
+    if product.save
+      render_json product
+    else
+      render_error :invalid_model, product
+    end
+  end
+end
+```
+
+Given a locale key `api.errors.invalid_model`, the `render_error`
+call would produce:
+
+```json
+{
+	"error": {
+		"code": "invalid_model",
+		"message": "The object couldn't be saved",
+		"details": {
+			"category": [
+				"must exist"
+			],
+			"name": [
+				"can't be blank"
+			],
+			"description": [
+				"can't be blank"
+			],
+			"price": [
+				"can't be blank",
+				"is not a number"
+			]
+		}
+	}
+}
+```
 
 ### Configuration
 

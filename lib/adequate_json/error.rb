@@ -53,7 +53,7 @@ module AdequateJson
 
     class << self
       def for(error, model = nil, includes = nil)
-        new(model, error, I18n.t(error, scope: %i[api errors]), includes)
+        new(model, error, I18n.t(error, scope: AdequateJson.configuration.i18n_errors_scope), includes)
       end
     end
   end

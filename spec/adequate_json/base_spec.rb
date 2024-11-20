@@ -121,8 +121,4 @@ RSpec.describe AdequateJson::Base do
       end
     end
   end
-
-  describe '#assets' do
-    pending 'test asset helper'
-  end
 end

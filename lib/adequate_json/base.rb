@@ -3,7 +3,6 @@
 module AdequateJson
   class Base
     include Resolver
-    include AssetHelper
     include Jsonizer
 
     def initialize(model, json = nil, variant: nil)
@@ -37,10 +36,6 @@ module AdequateJson
       return if model.nil?
 
       choose_serializer(model, **options).to_builder
-    end
-
-    def full_image_url(url)
-      [ActionController::Base.asset_host, 'assets', assets.find_asset(url).digest_path].join('/')
     end
 
     class << self

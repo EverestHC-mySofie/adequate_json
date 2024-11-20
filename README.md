@@ -163,27 +163,7 @@ end
 
 ### Pagination
 
-As soon as you've added [Kaminari](https:/{
-	"error": {
-		"code": "invalid_model",
-		"message": "The object couldn't be saved",
-		"details": {
-			"category": [
-				"must exist"
-			],
-			"name": [
-				"can't be blank"
-			],
-			"description": [
-				"can't be blank"
-			],
-			"price": [
-				"can't be blank",
-				"is not a number"
-			]
-		}
-	}
-}/github.com/kaminari/kaminari)
+As soon as you've added [Kaminari](https://github.com/kaminari/kaminari)
 to your Gemfile and paginate a collection, AdequateJSON automatically appends
 the `pagination` property to the JSON output:
 

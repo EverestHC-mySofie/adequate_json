@@ -161,6 +161,16 @@ class ProductsController < ActionController::API
 end
 ```
 
+Builder variants default to :no_wrapper for all elements of the hash, but a specific variant can be specified for each element. To use a specific variant, provide it as a keyword argument:
+
+```ruby
+class ProductsController < ActionController::API
+  def show
+    render_json { product: Product.find(params[:id]), categories: Category.order(:name) }, variants: { product: :header }
+  end
+end
+```
+
 ### Pagination
 
 As soon as you've added [Kaminari](https://github.com/kaminari/kaminari)

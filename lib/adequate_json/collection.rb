@@ -3,7 +3,7 @@
 require 'adequate_json/base'
 module AdequateJson
   class Collection < AdequateJson::Base
-    def initialize(collection, json = nil, variant: nil)
+    def initialize(collection, json = nil, variant: nil, variants: {})
       @first_level = true if json.nil?
       super
       @variant ||= :no_wrapper
@@ -13,7 +13,7 @@ module AdequateJson
       with_jbuilder do |json|
         json.set!(collection_key) do
           json.array! @model do |item|
-            serialize item, variant: @variant
+            serialize item, variant: @variant, variants: @variants
           end
         end
         attach_pagination(json)

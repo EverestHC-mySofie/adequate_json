@@ -4,8 +4,8 @@ module AdequateJson
   module Serializer
     include AdequateJson::Resolver
 
-    def render_json(model, variant: nil, **options)
-      render json: choose_serializer(model, variant: variant), **options
+    def render_json(model, variant: nil, variants: {}, **options)
+      render json: choose_serializer(model, variant: variant, variants: variants), **options
     end
 
     def render_error(error, model = nil, includes: nil, **options)

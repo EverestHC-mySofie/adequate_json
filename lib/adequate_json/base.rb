@@ -5,9 +5,10 @@ module AdequateJson
     include Resolver
     include Jsonizer
 
-    def initialize(model, json = nil, variant: nil)
+    def initialize(model, json = nil, variant: nil, variants: {})
       @model = model
       @variant = variant
+      @variants = variants
       @json = json
     end
 
